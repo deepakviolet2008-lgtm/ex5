@@ -51,9 +51,7 @@ math.html
             <button type="submit">Calculate</button>
         </form>
 
-        
-
-        {% if BMI %}
+            {% if BMI %}
             <h3>Your BMI is: {{ BMI }}</h3>
         {% endif %}
     </center>
