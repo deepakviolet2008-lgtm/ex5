@@ -1,5 +1,5 @@
 # Ex.05 Design a Website for Server Side Processing
-## Date:
+## Date:12/12/2025
 
 ## AIM:
  To design a website to calculate the power of a lamp filament in an incandescent bulb in the server side. 
@@ -89,7 +89,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.calculate_bmi, name='calculate_bmi'),
 ]
-
 
 ## SERVER SIDE PROCESSING:
 <img width="1192" height="267" alt="image" src="https://github.com/user-attachments/assets/ecc220bb-476f-4463-b13f-73555dcbfb16" />
