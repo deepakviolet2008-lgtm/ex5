@@ -32,62 +32,121 @@ Create a HTML file to implement form based input and output.
 Publish the website in the given URL.
 
 ## PROGRAM :
-math.html
+       math.html
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>BMI Calculator</title>
+<title>Power of a Lamp</title>
+<style>
+    body {
+        background-color: powderblue;
+        font-family: Arial;
+    }
+    .box {
+        width: 380px;
+        background-color: plum;
+        color: black;
+        padding: 20px;
+        margin: auto;
+        margin-top: 120px;
+        border: 5px dotted black;
+        text-align: left;
+    }
+    input {
+        width: 150px;
+        padding: 5px;
+    }
+    button {
+        margin-top: 10px;
+        padding: 5px 15px;
+    }
+</style>
 </head>
-<body bgcolor="lightblue">
-    <center>
-        <h2>BMI Calculator</h2>
-        <form method="POST">
-            {% csrf_token %}
-            <label>Height (m):</label><br>
-            <input type="text" name="height"><br><br>
-            <label>Weight (kg):</label><br>
-            <input type="text" name="weight"><br><br>
-            <button type="submit">Calculate</button>
-        </form>
+<body>
 
-            {% if BMI %}
-            <h3>Your BMI is: {{ BMI }}</h3>
-        {% endif %}
-    </center>
+<div class="box">
+    <h2 style="text-align:center;">Power of a Lamp</h2>
+
+    Current : 
+    <input type="text" id="i"> (in A)
+    <br><br>
+
+    Resistance : 
+    <input type="text" id="r"> (in Ω)
+    <br><br>
+
+    <button onclick="calc()">Calculate</button>
+    <br><br>
+
+    Power : 
+    <input type="text" id="p" readonly> W
+</div>
+
+<script>
+function calc() {
+    let I = parseFloat(document.getElementById("i").value);
+    let R = parseFloat(document.getElementById("r").value);
+    
+    if (!isNaN(I) && !isNaN(R)) {
+        document.getElementById("p").value = (I * I * R).toFixed(0);
+    } else {
+        document.getElementById("p").value = "Error";
+    }
+}
+</script>
+
 </body>
 </html>
+
 
 views.py
 
 from django.shortcuts import render
 
-def calculate_bmi(request):
-    bmi = None   # Default value
+def lamp_power(request):
+    print("Request :", request)
+    context = {}
+    context['power'] = "0"
+    context['I'] = "0"
+    context['R'] = "0"
 
     if request.method == "POST":
-        height = float(request.POST.get("height"))
-        weight = float(request.POST.get("weight"))
-        bmi = weight / (height * height)
+        print("POST method is used")
 
-        # Print to server console for debugging
-        print("Height:", height)
-        print("Weight:", weight)
-        print("BMI calculated:", bmi)
+        I = request.POST.get('current', '0')
+        R = request.POST.get('resistance', '0')
 
-    return render(request, "mathapp/template.html", {"BMI": bmi})
+        print("Current :", I)
+        print("Resistance :", R)
+
+        try:
+            power = (float(I) * float(I)) * float(R)
+        except:
+            power = "Invalid"
+
+        context['power'] = power
+        context['I'] = I
+        context['R'] = R
+
+        print("Power :", power)
+
+    return render(request, 'mathapp/math.html', context)
+
 
 urls.py
 
 from django.contrib import admin
 from django.urls import path
-from mathapp import views
+from mathapp import views   
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.calculate_bmi, name='calculate_bmi'),
-]
 
+    path('lamp-power/', views.lamp_power, name='lamp_power'),
+
+    path('', views.lamp_power, name='lamp_power_root'),
+]
 
 ## SERVER SIDE PROCESSING:
 <img width="1192" height="267" alt="image" src="https://github.com/user-attachments/assets/ecc220bb-476f-4463-b13f-73555dcbfb16" />
