@@ -90,6 +90,7 @@ urlpatterns = [
     path('', views.calculate_bmi, name='calculate_bmi'),
 ]
 
+
 ## SERVER SIDE PROCESSING:
 <img width="1192" height="267" alt="image" src="https://github.com/user-attachments/assets/ecc220bb-476f-4463-b13f-73555dcbfb16" />
 
