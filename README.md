@@ -32,12 +32,71 @@ Create a HTML file to implement form based input and output.
 Publish the website in the given URL.
 
 ## PROGRAM :
+math.html
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BMI Calculator</title>
+</head>
+<body bgcolor="lightblue">
+    <center>
+        <h2>BMI Calculator</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <label>Height (m):</label><br>
+            <input type="text" name="height"><br><br>
+            <label>Weight (kg):</label><br>
+            <input type="text" name="weight"><br><br>
+            <button type="submit">Calculate</button>
+        </form>
+
+        
+
+        {% if BMI %}
+            <h3>Your BMI is: {{ BMI }}</h3>
+        {% endif %}
+    </center>
+</body>
+</html>
+
+views.py
+
+from django.shortcuts import render
+
+def calculate_bmi(request):
+    bmi = None   # Default value
+
+    if request.method == "POST":
+        height = float(request.POST.get("height"))
+        weight = float(request.POST.get("weight"))
+        bmi = weight / (height * height)
+
+        # Print to server console for debugging
+        print("Height:", height)
+        print("Weight:", weight)
+        print("BMI calculated:", bmi)
+
+    return render(request, "mathapp/template.html", {"BMI": bmi})
+
+urls.py
+
+from django.contrib import admin
+from django.urls import path
+from mathapp import views
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', views.calculate_bmi, name='calculate_bmi'),
+]
 
 
 ## SERVER SIDE PROCESSING:
+<img width="1192" height="267" alt="image" src="https://github.com/user-attachments/assets/ecc220bb-476f-4463-b13f-73555dcbfb16" />
 
 
 ## HOMEPAGE:
+<img width="1723" height="608" alt="image" src="https://github.com/user-attachments/assets/f0b38db3-786e-4a39-84f6-79efe86dd128" />
 
 
 ## RESULT:
