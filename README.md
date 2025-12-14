@@ -32,7 +32,7 @@ Create a HTML file to implement form based input and output.
 Publish the website in the given URL.
 
 ## PROGRAM :
-math.html
+```math.html
 <!DOCTYPE html>
 <html>
 <head>
@@ -142,7 +142,7 @@ urlpatterns = [
     path('lamp-power/', views.lamp_power, name='lamp_power'),
 
     path('', views.lamp_power, name='lamp_power_root'),]
-
+```
 ## SERVER SIDE PROCESSING:
 <img width="1192" height="267" alt="image" src="https://github.com/user-attachments/assets/ecc220bb-476f-4463-b13f-73555dcbfb16" />
 
